@@ -2,7 +2,7 @@
 
 ## Tehtävät
 
-### Viikko1
+### Viikko 1
 
 [gitlog.txt](https://github.com/veetihytonen/WordleClonePython/blob/main/laskarit/viikko1/gitlog.txt)
 
