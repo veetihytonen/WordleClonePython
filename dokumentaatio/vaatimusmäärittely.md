@@ -14,7 +14,7 @@ The intial plan doesn't include users, as it is not necessary for this applicati
 
 The application opens to the main game window. This is the only window in the application and the "how to play", "settings" and "statistics" buttons open up modals. If a modal is open, the rest of the main window is darkened to help readability. The "statistics" modal also opens when the game ends.
 
-### Functionality
+### Core functionality
 
 * The application saves the state of an ongoing game and opens to that state
 * The user can guess words by writing a valid five letter word and pressing enter
@@ -26,7 +26,12 @@ The application opens to the main game window. This is the only window in the ap
 * The "how to play" button opens a modal with instructions on how to play
 * The "statistics" button opens a modal with statistics about previous games
 * The "restart" button can be pressed after the game has ended, which resets the game with a new word
-* The game is automatially reset every 24 hours
+* The game is automatically reset every 24 hours
 * Within the "options" modal:
     * An option for dark mode
 
+### Additional ideas
+
+* Implementing Users
+* Hard mode, in which revealed hints must be in subsequent guesses
+* High contrast mode for improved color vision
