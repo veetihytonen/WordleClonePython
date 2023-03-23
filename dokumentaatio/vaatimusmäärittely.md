@@ -10,6 +10,8 @@ The intial plan doesn't include users, as it is not necessary for this applicati
 
 ### User interface
 
+![WordleClonePython UI draft](https://github.com/veetihytonen/WordleClonePython/blob/main/dokumentaatio/images/WordleClone%20UI%20draft.jpg)
+
 The application opens to the main game window. This is the only window in the application and the "how to play", "settings" and "statistics" buttons open up modals. If a modal is open, the rest of the main window is darkened to help readability. The "statistics" modal also opens when the game ends.
 
 ### Functionality
