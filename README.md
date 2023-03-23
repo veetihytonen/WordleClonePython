@@ -8,10 +8,6 @@
 
 [komentorivi.txt](https://github.com/veetihytonen/WordleClonePython/blob/main/laskarit/viikko1/komentorivi.txt)
 
+### Viikko 2
 
-
-Here is some sampletext to show that we can use, for example, **bolding** or *italics*.
-
-Line to test git push
-
-Line to test conflicts
+[vaatimusmäärittely.md](https://github.com/veetihytonen/WordleClonePython/blob/main/dokumnetaatio/vaatimusmäärittely.md)
