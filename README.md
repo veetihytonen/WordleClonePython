@@ -10,4 +10,6 @@
 
 ### Viikko 2
 
-[vaatimusmäärittely.md](https://github.com/veetihytonen/WordleClonePython/blob/main/dokumnetaatio/vaatimusmäärittely.md)
+[vaatimusmäärittely.md](https://github.com/veetihytonen/WordleClonePython/blob/main/dokumentaatio/vaatimusmäärittely.md)
+
+[tuntikirjanpito.md](https://github.com/veetihytonen/WordleClonePython/blob/main/dokumentaatio/tuntikirjanpito.md)
