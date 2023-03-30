@@ -18,7 +18,7 @@ sequenceDiagram
 
     olio->>+moottori: is_running()
 
-    moottori-->>olio: True
+    moottori-->>-olio: True
 
     olio->>+moottori: use_energy()
 
