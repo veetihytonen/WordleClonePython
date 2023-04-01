@@ -10,7 +10,7 @@ class GameState():
     #     which letters have been found "dark", "yellow" and "green"
     #     (built from user guesses on creations and updated angloside it)
 
-    def __init__(self, current_solution: list, user_guesses: list) -> None:
+    def __init__(self, current_solution: list = [], user_guesses: list = []) -> None:
         self._current_solution = current_solution
         self._user_guesses = user_guesses
     # - "current_solution" is the correct answer as a list of letters
@@ -34,7 +34,7 @@ class GameState():
         #                       - is in current_solution
         #                       - is in the right position in a guess it appeared in
 
-    def _update_letter_state(self, guess_data: tuple) -> None:
+    def _update_letter_state(self, guess_and_comparison_result: tuple) -> None:
         
         def convert_symbol_to_num(symbol: str) -> int:
             if symbol == "N":
@@ -46,16 +46,16 @@ class GameState():
             else:
                 return 3
 
-        word, comparison = guess_data
+        word, comparison = guess_and_comparison_result
         for i, letter in enumerate(word):
             letter_state_curr = convert_symbol_to_num(self._letter_state[letter])
             if convert_symbol_to_num(comparison[i]) > letter_state_curr:
                 self._letter_state[letter] = comparison[i]
     
 
-    def add_user_guess(self, user_guess: tuple) -> None:
-        self._user_guesses.append(user_guess)
-        self._update_letter_state(user_guess)
+    def add_user_guess(self, guess_data: tuple) -> None:
+        self._user_guesses.append(guess_data)
+        self._update_letter_state(guess_data)
     
 
 
