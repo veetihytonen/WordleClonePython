@@ -1,4 +1,4 @@
-from services.ui_command_handler_service import ui_command_handler_service
+from entities.game_state import GameState
 
 class LogicAPI():
     # This class is reponsible for the logic that sits between everything
@@ -7,77 +7,63 @@ class LogicAPI():
     #   - 
 
     def __init__(self) -> None:
-        # this will be fetched from DB on program start / game restart
-        self._current_correct_word = []
+        self._game_state = GameState()
 
-        # This object will be an interface for issuing commands to UI from Logic API.
-        # Intended use is issuing commands to UI when options / game state change,
-        # not for normal word comparison.
-        self._ui_command_handler = ui_command_handler_service
-
-    @property
-    def current_correct_word(self) -> list:
-        return self._current_correct_word
-
-    @current_correct_word.setter
-    def current_correct_word(self, word_as_letters_in_list: list) -> None:
-        self._current_correct_word = word_as_letters_in_list
-
+    # temp function for testing, to be removed
+    def set_solution(self, word: str):
+        self._game_state._current_solution = list(word)
 
     # Meant for use of: input_user_guess()
-    def _compare_user_guess_to_correct_word(self, guess: list) -> list:
-    # Function takes in user guess and outputs list of tuples. Tuples are composed of:
-    # Item 0: corresponding letter in the user guess
-    # Item 1: symbol for result of comparing that letter to correct word:
+    def _compare_user_guess_to_solution(self, guess: list) -> list:
+    # Function takes in a user guess and returns a list containing symbols
+    # resulting from comparing each letter in guess to solution.
     #   - X for correct letter in correct place: "green" letter
     #   - * for correct letter in wrong place : "yellow" letter
-    #   - _ for incorrect letter: "gray" letter
+    #   - _ for incorrect letter: "dark" letter
 
-        correct_word = self._current_correct_word
-
-        correct_word_letter_counts = {}
-        for letter in correct_word:
-            if letter not in correct_word_letter_counts:
-                correct_word_letter_counts[letter] = 0
-            correct_word_letter_counts[letter] += 1
+        solution = self._game_state._current_solution
+        
+        # Find number of letters in solution in order to 
+        # keep track of duplicates in next step.
+        solution_letter_counts = {}
+        for letter in solution:
+            if letter not in solution_letter_counts:
+                solution_letter_counts[letter] = 0
+            solution_letter_counts[letter] += 1
 
         # The following is done in two passes as "green" letters need to be 
         # found first, as they take priority over "yellow" letters.
         
-        word_comparison_results = [None] * 5
+        comparison_results = [None] * 5
 
         # first pass to find "green" letters
         for i, letter in enumerate(guess):
-            if letter == correct_word[i]:
-                if correct_word_letter_counts[letter]:
-                    correct_word_letter_counts[letter] -= 1
-                word_comparison_results[i] = (letter, "X")
+            if letter == solution[i]:
+                if solution_letter_counts[letter]:
+                    solution_letter_counts[letter] -= 1
+                comparison_results[i] = "X"
         
         # second pass to find "yellow" and "dark" letters
         for i, letter in enumerate(guess):
-            letter_comparison_result = [letter]
-           
-            if letter != correct_word[i] and letter in correct_word_letter_counts and correct_word_letter_counts[letter]:
-                correct_word_letter_counts[letter] -= 1
-                letter_comparison_result.append("*")
+            if letter != solution[i] and letter in solution_letter_counts and solution_letter_counts[letter]:
+                solution_letter_counts[letter] -= 1
+                result = "*"
             else:
-                letter_comparison_result.append("_")
+                result = "_"
 
-            if not word_comparison_results[i]:
-                word_comparison_results[i] = tuple(letter_comparison_result)
+            if not comparison_results[i]:
+                comparison_results[i] = result
             
-        return word_comparison_results
+        return comparison_results
 
 
-    def input_user_guess(self, user_guess: list) -> tuple:
-    # this function is called by UI when inputting user guesses and returns tuple in which:
-    #   - item 0: Error Code. If empty, no error occured
-    #   - item 1: output of comparisons, can be empty if error occured
+    # this function is called by UI when inputting user guesses
+    def input_user_guess(self, user_guess: list) -> None:
 
         def guess_is_valid_word(guess: list) -> bool:
             # TODO:
             # - check if word in wordbank to see if word is valid guess
-            # for now just return True
+            # for now just returns True
             return True
         
         # guard clause: if word is invalid, give "invalid word to UI and return"
@@ -88,17 +74,13 @@ class LogicAPI():
         
         # from here on user is guess assumed to be valid
 
-        return self._compare_user_guess_to_correct_word(user_guess)
+        comparison = self._compare_user_guess_to_solution(user_guess)
+        self._game_state.add_user_guess((user_guess, comparison))
 
+        return user_guess, comparison
 
-
-            
-        
-
-        
-
-
-
+    def get_letter_state(self) -> dict:
+        return self._game_state._letter_state
 
 
 
