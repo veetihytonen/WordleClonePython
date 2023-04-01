@@ -56,7 +56,6 @@ class LogicAPI():
             
         return comparison_results
 
-
     # this function is called by UI when inputting user guesses
     def input_user_guess(self, user_guess: list) -> None:
 
