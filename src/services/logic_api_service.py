@@ -1,7 +1,7 @@
 from services.ui_command_handler_service import ui_command_handler_service
 
 class LogicAPI():
-    # This class is reponsible for the logic that sits between everyhting
+    # This class is reponsible for the logic that sits between everything
     # It does at least the following:
     #   - takes in user guesses and handles the response
     #   - 
@@ -11,7 +11,7 @@ class LogicAPI():
         self._current_correct_word = []
 
         # This object will be an interface for issuing commands to UI from Logic API.
-        # Intended use is for issuing commands to UI when options / game state change,
+        # Intended use is issuing commands to UI when options / game state change,
         # not for normal word comparison.
         self._ui_command_handler = ui_command_handler_service
 
@@ -29,12 +29,11 @@ class LogicAPI():
     # Function takes in user guess and outputs list of tuples. Tuples are composed of:
     # Item 0: corresponding letter in the user guess
     # Item 1: symbol for result of comparing that letter to correct word:
-    #   - X for correct letter in correct place
-    #   - * for correct letter in wrong place
-    #   - _ for incorrect letter
+    #   - X for correct letter in correct place: "green" letter
+    #   - * for correct letter in wrong place : "yellow" letter
+    #   - _ for incorrect letter: "gray" letter
 
         correct_word = self._current_correct_word
-        word_comparison_results = [None] * 5
 
         correct_word_letter_counts = {}
         for letter in correct_word:
@@ -42,17 +41,19 @@ class LogicAPI():
                 correct_word_letter_counts[letter] = 0
             correct_word_letter_counts[letter] += 1
 
-        # The following done in two passes as "green" letter need to be 
-        # found first, as they take priority over "yellow" letters
+        # The following is done in two passes as "green" letters need to be 
+        # found first, as they take priority over "yellow" letters.
+        
+        word_comparison_results = [None] * 5
 
-        # first pass to find letters in correct place
+        # first pass to find "green" letters
         for i, letter in enumerate(guess):
             if letter == correct_word[i]:
                 if correct_word_letter_counts[letter]:
                     correct_word_letter_counts[letter] -= 1
                 word_comparison_results[i] = (letter, "X")
         
-        # second pass to look for correct letters in wrong place / assign incorrect letters
+        # second pass to find "yellow" and "dark" letters
         for i, letter in enumerate(guess):
             letter_comparison_result = [letter]
            
@@ -95,7 +96,6 @@ class LogicAPI():
         
 
         
-
 
 
 
