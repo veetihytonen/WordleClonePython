@@ -8,13 +8,13 @@ class GameState():
     #     (fetched from DB before creation, updated as the user inputs words)
     #   - letter state: highest level of match found for each letter ie.
     #     which letters have been found "dark", "yellow" and "green"
-    #     (built from user guesses on creations and updated angloside it)
+    #     (built from user guesses on creation and updated alongside it)
 
     def __init__(self, current_solution: list = [], user_guesses: list = []) -> None:
         self._current_solution = current_solution
         self._user_guesses = user_guesses
-    # - "current_solution" is the correct answer as a list of letters
-    # - "user_guesses" is a list of tuples, where each tuple consists of:
+    # - current_solution is the correct answer, as a list of letters
+    # - user_guesses is a list of tuples, where each tuple consists of:
     #   Item 0: guess recieved from UI, as a list of letters
     #   Item 1: results of comparing it to current_solution, as a list of symbols
 
@@ -25,12 +25,12 @@ class GameState():
         # each has one of four symbols as value. Symbols are:
         #  "N" for   "grey": letter hasn't appeared in guess
         #  "_" for   "dark": letter has appeared in guess: 
-        #                       - is not in current_solution
+        #                       - is not in current solution
         #  "*" for "yellow": letter has appeared in guess: 
-        #                       - is in current_solution
+        #                       - is in current solution
         #                       - is in wrong position in the guesses it appeared in
         #  "X" for  "green": letter has appeared in guess:
-        #                       - is in current_solution
+        #                       - is in current solution
         #                       - is in the right position in a guess it appeared in
 
     def _update_letter_state(self, guess_and_comparison_result: tuple) -> None:
