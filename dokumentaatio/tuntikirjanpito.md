@@ -6,7 +6,7 @@
 |31.3.23|  2h  |designed components the program consists of, drew initial design docs|
 |       |  6h  |structuring files in src, drawing more design stuff developement of Logic API|
 |1.4.23 |  5h  |wrote core functionality for GameState in entities, refactored Logic API to work with it|
-|       |      |  |
+|2.4.23 |  2h  |refactored Logic API and GameState into class Game|
 |       |      |  |
 |       |      |  |
 |       |      |  |

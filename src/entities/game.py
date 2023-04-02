@@ -16,6 +16,7 @@ class Game:
         for guess in self._user_guesses:
             self._update_guessed_letters_state(guess)
     
+    
     # temp function for testing, to be removed
     def set_solution(self, word):
         self._solution = list(word)
@@ -64,10 +65,12 @@ class Game:
             
         return comparison_results
     
+
     def _guess_is_valid_word(self, guess: list) -> bool:
         # will check if guess in list of valid words
         # for now just returns True
         return True
+
 
     def input_guess(self, guess: list) -> None:
         if not self._guess_is_valid_word(guess):
