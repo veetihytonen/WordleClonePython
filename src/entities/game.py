@@ -93,8 +93,7 @@ class Game:
 
         if self._guess_is_same_as_solution(comparison_data):
             self._resolution = 1
-        
-        if len(self._user_guesses) == 6:
+        elif len(self._user_guesses) == 6:
             self._resolution = 0
 
         return self._resolution
