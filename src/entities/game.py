@@ -1,21 +1,43 @@
+import os.path
+import pickle
+from save_config import save_file_path
+
 class Game:
     # An instance of Game represents state of one game of wordle
-    def __init__(self, solution: str, previous_guesses: list = []) -> None:
+    def __init__(self, solution: str) -> None:
         # user_guesses formatting: [[{'char': 's', 'level': 1}...]...]
 
         # Resolution represents win / loss state:
         # If game is ongoing: None
         # If game ends in win: 1
         # If game ends in loss: 0
+        self._save_file_path = save_file_path
 
         self._resolution = None
         self._solution = list(solution)
-        self._user_guesses = previous_guesses
+        self._user_guesses = []
         self._guessed_letters_state = {}
 
         for guess in self._user_guesses:
             self._update_guessed_letters_state(guess)
-    
+
+
+    @staticmethod
+    def write_save_to_binary(game_object):
+        with open(f'{save_file_path}', 'wb') as save_file:
+            pickle.dump(game_object, save_file)
+        
+
+    @staticmethod
+    def read_save_from_binary():
+        with open(f'{save_file_path}', 'rb') as save_file:
+            try:
+                game_object = pickle.load(save_file)
+            except EOFError:
+                game_object = Game()
+        
+        return game_object
+        
 
     # temp function for testing, to be removed
     def set_solution(self, word):
