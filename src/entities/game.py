@@ -1,6 +1,6 @@
 class Game:
     # An instance of Game represents state of one game of wordle
-    def __init__(self, solution: str, user_guesses: list = []) -> None:
+    def __init__(self, solution: str, previous_guesses: list = []) -> None:
         # user_guesses formatting: [[{'char': 's', 'level': 1}...]...]
 
         # Resolution represents win / loss state:
@@ -10,13 +10,13 @@ class Game:
 
         self._resolution = None
         self._solution = list(solution)
-        self._user_guesses = user_guesses
+        self._user_guesses = previous_guesses
         self._guessed_letters_state = {}
 
         for guess in self._user_guesses:
             self._update_guessed_letters_state(guess)
     
-    
+
     # temp function for testing, to be removed
     def set_solution(self, word):
         self._solution = list(word)
@@ -70,20 +70,31 @@ class Game:
         # will check if guess in list of valid words
         # for now just returns True
         return True
+    
+
+    def _guess_is_same_as_solution(self, guess: list):
+        # takes in format output by _compare_guess_to_solution
+        for char_data in guess:
+            if char_data['level'] != 2:
+                return False
+            
+        return True
 
 
-    def input_guess(self, guess: list) -> None:
+    def input_guess(self, guess: list):
         if not self._guess_is_valid_word(guess):
             return "some error here"
         
         comparison_data = self._compare_guess_to_solution(guess)
         
         self._user_guesses.append(comparison_data)
+        print(comparison_data)
         self._update_guessed_letters_state(comparison_data)
 
+        if self._guess_is_same_as_solution(comparison_data):
+            self._resolution = 1
+        
+        if len(self._user_guesses) == 6:
+            self._resolution = 0
 
-    
-
-            
-
-
+        return self._resolution
