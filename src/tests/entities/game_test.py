@@ -13,8 +13,6 @@ class TestGame(unittest.TestCase):
 
     # write this to utilise word bank so it actually tests a meanigful amount of cases
     def test_compare_guess_to_solution_compares_correctly(self):
+        # As of now this does jack shit
         guess = list()
         output = self.game._compare_guess_to_solution(guess)
-        
-
-

@@ -80,7 +80,7 @@ class Game:
             
         return True
 
-
+    # returns gamestate
     def input_guess(self, guess: list):
         if not self._guess_is_valid_word(guess):
             return "some error here"
@@ -97,3 +97,4 @@ class Game:
             self._resolution = 0
 
         return self._resolution
+
