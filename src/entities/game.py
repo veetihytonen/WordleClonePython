@@ -1,4 +1,3 @@
-import os.path
 import pickle
 from save_config import save_file_path
 
