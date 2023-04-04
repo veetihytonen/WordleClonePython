@@ -2,7 +2,8 @@ import pickle
 from save_config import save_file_path
 
 class Game:
-    # An instance of Game represents state of one game of wordle
+    # An instance of Game represents the state of one game of wordle
+   
     def __init__(self, solution: str) -> None:
         # user_guesses formatting: [[{'char': 's', 'level': 1}...]...]
 
@@ -101,7 +102,8 @@ class Game:
             
         return True
 
-    # returns gamestate
+
+    # returns resolution state
     def input_guess(self, guess: list):
         if not self._guess_is_valid_word(guess):
             return "some error here"
