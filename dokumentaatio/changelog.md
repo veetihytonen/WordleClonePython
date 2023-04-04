@@ -1,5 +1,5 @@
-## Viikko 3
+## Week 3
 
-- Lisätty Game-luokka, joka vastaa pelilogiikasta
+- Implemented class Game, which is responsible for game logic.
 
-- Lisätty sanapankit
+- Added word banks
