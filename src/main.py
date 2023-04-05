@@ -1,9 +1,16 @@
-print()
-print("YOUHAVEJUSTBEENTROLLED" * 10)
-print()
+from tkinter import Tk
+from ui.ui_manager import UIManager
 
-print("You just got scammed, this file doesn't run shit yet cause I need the UI to do that sensibly and I haven't made it yet")
 
-print()
-print("YOUHAVEJUSTBEENTROLLED" * 10)
-print()
+def main():
+    window = Tk()
+    window.title('Highly Illegal Bootleg Wordle')
+
+    ui_view = UIManager(window)
+    ui_view.start()
+
+    window.mainloop()
+
+
+if __name__ == '__main__':
+    main()
